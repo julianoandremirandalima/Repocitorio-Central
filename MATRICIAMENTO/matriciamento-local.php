@@ -64,7 +64,10 @@ if($btdeletar=="DELETAR")
         
 }
 
-
+$selectgeral = $con->prepare("SELECT * FROM local WHERE idlocal = '$idlocal'");
+$selectgeral->execute();
+$arraygeral = $selectgeral->fetch();
+$nomedolocal = $$arraygeral["nomelocal"];
 ?>
 
  <script type="text/javascript">
@@ -110,7 +113,7 @@ function confirmar() {
             <div class="box">
             
               <div class="icon"><i class="bi bi-card-checklist"></i></div>
-              <h4 class="title">NOVOS MATRICIAMENTOS</h4>
+              <h4 class="title">NOVOS MATRICIAMENTOS <?=$nomedolocal?></h4>
               <p class="description">LISTAGEM COMPLETA.</p>
               <hr>
 			
