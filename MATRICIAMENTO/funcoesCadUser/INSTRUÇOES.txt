@@ -1,0 +1,18 @@
+SISTEMA CRUD 4.1 - JULIANO ANDRÉ MIRANDA LIMA
+
+ESTRUTURA DOS ARQUIVOS=================================================
+- busca_unica.php (Aqui é montado os dados do indíviduo)
+- buscar.php (Funções para formar o dataTable central)
+- db.php (Conexão com o banco de dados)
+- delete.php (Função exclusão do banco de dados)
+- funcaoMestra.js (Aqui está toda as requisçoes assincronas AJAX)
+- funcoes.php (Funçoes gerais)
+- inserir_aterar.php (Funções de inserção e update do banco)
+========================================================================
+
+QUANDO REPLICAR O SISTEMA QUAIS ARQUIVOS ALTERAR========================
+- Primeiramente, alterar todas as referências para as novas tabelas e coluna com seus respectivos SELECT, UPDATE, DELETE.
+- No arquivo busca_unica.php: 
+   * a partir da linha 11, referenciar os campos que vão ser filtrados colocando o nome exato da coluna vinda do banco de dados.
+   * a partir da linha 47, array ($sub_array) acrescentar os campos que irão aparecer na tabela. Apenas se atente para os campos botoes de ação
+     com a seguinte OBSERVAÇÃO: não remova os botoes de Editar e Deletar. Se preferir acrescetar outros ou tirar, fica a seu critério.

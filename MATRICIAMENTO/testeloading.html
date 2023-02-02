@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8"/>
+<title>Show page loading spinner while processing a form</title>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<link href="css/custom.css" rel="stylesheet" />
+<style type="text/css">
+.progresso {
+    display: none;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: white;
+    border: 1px solid black;
+    height: 90px;
+    width: 120px;
+}
+</style>
+</head>
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+
+<div id="divCarregando" class="progresso">
+    <p>Aguarde...</p>
+</div>
+<script>
+$(document).ready(function () {
+    $("#divCarregando").show();
+    $(window).load(function () {
+        // Quando a página estiver totalmente carregada, remove o id
+        $('#divCarregando').fadeOut('slow');
+    });
+});
+</script>
+
+   <table id="example" class="display" style="width:100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th width="2%">#</th>
+                                                            <th width="4%">DATA</th>
+                                                            <th width="11%">UNIDADE<br /> 
+                                                            REQUISITANTE</th>
+                                                            <th width="11%">PRONTU&Aacute;RIO <br />
+                                                            REQUISITANTE</th>
+															<th width="10%">DATA <br />
+														    NASCIMENTO</th>
+															<th width="11%">REQUISITADO</th>
+															<th width="11%">PRONTU&Aacute;RIO <br />
+														    REQUISITADO</th>
+															<th width="8%">NOME <br />
+														    PACIENTE</th>
+															<th width="3%">OBS</th>
+															<th width="11%">PLANO <br />
+														    TERAPEUTICO</th>
+															<th width="5%">LOCAL</th>
+															<th width="7%">STATUS</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                       <?php
+													   if($tipologado=='administrador')
+													   {
+													   		$tabela = "viewmatriciamentolocais";
+															$query = "SELECT * FROM $tabela WHERE status = 'FINALIZADO'";
+													   }
+													   else
+													   {
+													   	    $tabela = "viewmatriciamentoequipes";
+															$query = "SELECT * FROM $tabela WHERE status = 'FINALIZADO' AND idprofissional = '$usuariologado'";
+													   }
+													   $select = $con->prepare($query);
+													  // print_r($query);
+														$select->execute();
+														while($array = $select->fetch())
+														{
+														$status = $array["status"];
+														
+															
+														
+													   ?>
+                                                        <tr class="table-success">
+                                                            <th scope="row"><?=$array["id"]?>                                                           														</th>
+                                                            <td><?=$array["data"]?></td>
+                                                            <td><?=$array["unidaderequisitante"]?></td>
+															 <td><?=$array["protuariorequisitante"]?></td>
+															  <td><?=$array["datanascimento"]?></td>
+															  
+															    <td><?=$array["requisitado"]?></td>
+																 <td><?=$array["prontuariorequisitado"]?></td>
+																  <td><?=$array["nomepaciente"]?></td>
+																   <td><?=$array["obs"]?></td>
+																    <td><?=$array["planoterapeutico"]?></td>
+																	 <td><?=$array["nomelocal"]?></td>
+																	 <td><?=$array["status"]?></td>
+                                                        </tr>
+														<?php
+														}
+														?>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                       
+			  
+              </div>  
+            </div>
+          </div>
+
+</body>
+</html>
