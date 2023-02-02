@@ -18,7 +18,7 @@ $idlocal = $_REQUEST["idlocal"];
    
 	$select->execute();
 	$array = $select->fetch();
-$pagina = $_REQUEST["pagina"];	
+$pagina = $_REQUEST["pagina"]."?idlocal=$idlocal";	
 
 ?>
 
@@ -72,7 +72,7 @@ function confirmar() {
 			  <p id="success"></p>
               <div class="table-responsive">
               
-			  <div align="left"><a href="matriciamento.php"><button type="button" class="btn btn-secondary btn-sm">
+			  <div align="left"><a href="<?=$pagina?>"><button type="button" class="btn btn-secondary btn-sm">
 				<i class="bi bi-arrow-left-circle"></i> voltar
 				</button></a>
 				
