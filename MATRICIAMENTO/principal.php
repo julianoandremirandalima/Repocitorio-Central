@@ -14,21 +14,8 @@ include("header.php");
     <section id="services">
       <div class="container" data-aos="fade-up">
       <div class="section-header" align="center">
-          <h2  style="font-size: 20px; margin-top:100px"><?=$nomelogadox?>, Bem vindo ao Sistema SISTEC - MATRICIAMENTO</h2>
-		 <div> <strong>MEUS LOCAIS: </strong>
-		  <?php
-					$smeuslocais = $con->prepare("SELECT * FROM viewequivelocal WHERE idprofissional = '$usuariologado'");
-					$smeuslocais->execute();
-					while($arraymeuslocais = $smeuslocais->fetch())
-					{
-						$icone = '<i class="bi bi-bookmark-fill"></i>';
-						$meuslocais = $arraymeuslocais["localequipe"].",";
-						$nomemeuslocais = $icone." ".$arraymeuslocais["nomelocal"]." ";
-						echo($nomemeuslocais);
-					
-					}
-				?>
-           </div>
+          <h2  style="font-size: 20px; margin-top:100px"><?=$nomelogadox?>, Bem vindo ao Sistema  MATRICIAMENTO</h2>
+		 
         </div>
 
         <?php
