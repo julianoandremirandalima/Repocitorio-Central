@@ -64,10 +64,7 @@ if($btdeletar=="DELETAR")
         
 }
 
-$selectgeral = $con->prepare("SELECT * FROM local WHERE idlocal = '$idlocal'");
-$selectgeral->execute();
-$arraygeral = $selectgeral->fetch();
-$nomedolocal = $arraygeral["nomelocal"];
+
 ?>
 
  <script type="text/javascript">
@@ -113,7 +110,7 @@ function confirmar() {
             <div class="box">
             
               <div class="icon"><i class="bi bi-card-checklist"></i></div>
-              <h4 class="title">MATRICIAMENTOS FINALIZADOS <?=strtoupper($nomedolocal)?></h4>
+              <h4 class="title">NOVOS MATRICIAMENTOS</h4>
               <p class="description">LISTAGEM COMPLETA.</p>
               <hr>
 			
@@ -126,12 +123,117 @@ function confirmar() {
 				
 				 <?php include("matriciamento-menu-local.html");?>
 				 <br><br>
-       	 	
+       <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"style="display:<?=$escondebt?>">
+  ADICIONAR
+</button>
+<form action="matriciamento-local.php" method="post">
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">ADICIONAR MATRICIAMENTO</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       <div class="card-block">
+                                                           
+                                                         
+                                                                <div class="form-row">
+    <div class="form-group">
+      <label for="inputEmail4">DATA</label>
+      <input type="date" class="form-control" id="data"  name="data" value="<?=$array["data"]?>">
+    </div>
+    <div class="form-group">
+      <label for="inputPassword4">UNIDADE REQUISITANTE</label>
+      <input type="text" class="form-control" id="unidaderequisitante" name="unidaderequisitante" value="<?=$array["unidaderequisitante"]?>">
+    </div>
+	
+	 <div class="form-group">
+      <label for="inputPassword4">PRONTU&Aacute;RIO REQUISITANTE</label>
+      <input type="text" class="form-control" id="protuariorequisitante" name="protuariorequisitante" value="<?=$array["protuariorequisitante"]?>">
+    </div>
+	
+    <div class="form-group">
+      <label for="inputPassword4">NOME PACIENTE</label>
+      <input type="text" class="form-control" id="nomepaciente" name="nomepaciente" value="<?=$array["nomepaciente"]?>">
+    </div>
+	
+  </div>
+
+
+	 <div class="form-group">
+      <label for="inputPassword4">DATA NASCIMENTO</label>
+      <input type="date" class="form-control" id="datanascimento" name="datanascimento" value="<?=$array["datanascimento"]?>">
+    </div>
+	
+	<div class="form-group">
+      <label for="inputPassword4">REQUISITADO</label>
+      <input type="text" class="form-control" id="requisitado" name="requisitado" value="<?=$array["requisitado"]?>">
+    </div>
+	
+	<div class="form-group">
+      <label for="inputPassword4">PRONTU&Aacute;RIO REQUISITADO</label>
+      <input type="text" class="form-control" id="prontuariorequisitado" name="prontuariorequisitado" value="<?=$array["prontuariorequisitado"]?>">
+    </div>
+	
+	
+ 
+  <div class="form-row">
+   
+   
+    
+	 <div class="form-group">
+      <label for="inputState">LOCAL</label>
+       <select name="local" class="form-control">
+                                                                                <option value="<?=$array["local"]?>" selected="selected"><?=$array["local"]?></option>
+                                                                                <?php
+																				 if($tipologado=='administrador')
+													   							{
+																					$querylocal = "SELECT * FROM local ORDER BY nomelocal";
+																				}
+																				else
+																				{
+																					$querylocal = "SELECT * FROM local WHERE idlocal = '$idlocal' ORDER BY nomelocal";
+																				}
+                                                                                    $select2 = $con->prepare($querylocal);
+                                                                                    $select2->execute();
+                                                                                    while($array2 = $select2->fetch())
+                                                                                    {
+                                                                                ?>
+                                                                                         <option value="<?=$array2['idlocal']?>" selected><?=$array2['nomelocal']?></option>
+                                                                                <?php
+                                                                                    }
+                                                                                 ?>
+                                </select>
+    </div>
+	
+	 
+                                                                    
+                                                                    <input type="hidden" class="form-control" name="id" value="<?=$array["idusuario"]?>">
+								<input type="hidden" class="form-control" name="idlocal" value="<?=$idlocal?>">
+                                                                           
+                                                                         <input name="btadicionar" type="hidden" value="ADICIONAR"/>
+                                                                          
+                                                      
+                                                                        
+                            </div>    
+      </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">FECHAR</button>
+        <button type="button" class="btn btn-primary" onclick=submit();>ADICIONAR</button>
+      </div>
+    </div>
+  </div>
+</div>
+  	</form>		 	
 			<br>
            
                                             <div class="table-responsive">
                                                 <table id="example" class="display" style="width:100%">
-                                                    <thead  style="background-color:#006633;color:#FFFFFF">
+                                                    <thead  style="background-color:#0DCAF0">
                                                         <tr>
                                                             <th width="2%">#</th>
                                                             <th width="4%">DATA</th>
@@ -158,12 +260,12 @@ function confirmar() {
 													   if($tipologado=='administrador')
 													   {
 													   		$tabela = "viewmatriciamentolocais";
-															$query = "SELECT * FROM $tabela WHERE status = 'FINALIZADO'";
+															$query = "SELECT * FROM $tabela WHERE status = 'NOVO'";
 													   }
 													   else
 													   {
 													   	    $tabela = "viewmatriciamentolocais";
-															$query = "SELECT * FROM $tabela WHERE status = 'FINALIZADO' AND idlocal = '$idlocal'";
+															$query = "SELECT * FROM $tabela WHERE status = 'NOVO' AND idlocal = '$idlocal'";
 													   }
 													   $select = $con->prepare($query);
 													  // print_r($query);
@@ -188,8 +290,10 @@ function confirmar() {
 																   <td><?=$array["obs"]?></td>
 																    <td><?=$array["planoterapeutico"]?></td>
 																	 <td><?=$array["nomelocal"]?></td>
-																	 <td><?=$array["status"]?><br><a href="matriciamento-editar-local.php?pagina=matriciamento-em-andamento-local.php&id=<?=$array["id"]?>&idlocal=<?=$array["idlocal"]?>"><button class="btn btn-warning btn-icon"><i class="fa fa-pencil"></i></button></a>
-															</td>
+																	 <td><?=$array["status"]?><br><a href="matriciamento-editar-local.php?pagina=matriciamento-local.php&id=<?=$array["id"]?>&idlocal=<?=$array["idlocal"]?>"><button class="btn btn-warning btn-icon"><i class="fa fa-pencil"></i></button></a>
+															<form action="matriciamento-local.php" method="post" onsubmit="return confirmar();" style="display:<?=$escondebt?>"><button class="btn btn-danger btn-icon"><i class="fa fa-trash"></i></button><input type="hidden" class="form-control" name="id" value="<?=$array["id"]?>">
+                                                                           
+                                                                           <input name="btdeletar" type="hidden" value="DELETAR"/></form></td>
                                                         </tr>
 														<?php
 														}
