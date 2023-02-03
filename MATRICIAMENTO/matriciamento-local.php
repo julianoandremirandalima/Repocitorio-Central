@@ -63,10 +63,18 @@ if($btdeletar=="DELETAR")
         $q->execute();
         
 }
+<<<<<<< HEAD
 $selectgeral = $con->prepare("SELECT * FROM local WHERE idlocal = '$idlocal'");
 $selectgeral->execute();
 $arraygeral = $selectgeral->fetch();
 $nomedolocal = $arraygeral["nomelocal"];
+=======
+
+$selectgeral = $con->prepare("SELECT * FROM local WHERE idlocal = '$idlocal'");
+$selectgeral->execute();
+$arraygeral = $selectgeral->fetch();
+$nomedolocal = $$arraygeral["nomelocal"];
+>>>>>>> 82acd4ab7c804419608e74e8b9d3d22a0e9fbc19
 ?>
 
  <script type="text/javascript">
@@ -112,7 +120,11 @@ function confirmar() {
             <div class="box">
             
               <div class="icon"><i class="bi bi-card-checklist"></i></div>
+<<<<<<< HEAD
               <h4 class="title">NOVOS MATRICIAMENTOS <?=strtoupper($nomedolocal)?></h4>
+=======
+              <h4 class="title">NOVOS MATRICIAMENTOS <?=$nomedolocal?></h4>
+>>>>>>> 82acd4ab7c804419608e74e8b9d3d22a0e9fbc19
               <p class="description">LISTAGEM COMPLETA.</p>
               <hr>
 			
