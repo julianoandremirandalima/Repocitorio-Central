@@ -144,13 +144,30 @@ if($btdeletar=="DELETAR")
 															$query = "SELECT * FROM $tabela WHERE status = 'FINALIZADO' AND idprofissional = '$usuariologado'";
 													   }
 													   $select = $con->prepare($query);
+													   $select->execute();
+													  // $select->store_result();
+														$qtdlinhas = count($select->fetchAll());
+														//echo "linhas: ".$qtdlinhas;
 													  // print_r($query);
-														$select->execute();
+														 $select = $con->prepare($query);
+													   $select->execute();
+													   $i=1;
 														while($array = $select->fetch())
 														{
 														$status = $array["status"];
+														$indice = $i++;
 														
+														if($indice==$qtdlinhas)
+														
+														{
+														
+															$display = "block";
 															
+														}
+														else
+														{
+															$display = "block";
+														}
 														
 													   ?>
                                                         <tr class="table-success">
@@ -169,6 +186,7 @@ if($btdeletar=="DELETAR")
 																	 <td><?=$array["status"]?></td>
                                                         </tr>
 														<?php
+															
 														}
 														?>
                                                     </tbody>
